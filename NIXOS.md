@@ -69,13 +69,14 @@ systemd.services.rclone_sync_shutdown = {
   serviceConfig = {
     Type = "oneshot";
     TimeoutStartSec = "5min";
-    # Uses sudo -H to correctly preserve target user's $HOME
     ExecStart = ''
       ${pkgs.bash}/bin/bash -c '\
-      for u in $(${pkgs.coreutils}/bin/who | ${pkgs.gawk}/bin/awk "{print \$1}" | ${pkgs.coreutils}/bin/sort -u); do \
-          homedir=$(eval echo "~$u"); \
-          if [[ -x "$homedir/.config/rclone_sync/start_sync.sh" ]]; then \
-              ${pkgs.sudo}/bin/sudo -H -u "$u" "$homedir/.config/rclone_sync/start_sync.sh" || echo "Sync failed for $u"; \
+      for homedir in /home/*; do \
+          if [[ -d "$homedir" ]]; then \
+              u=$(basename "$homedir"); \
+              if [[ -x "$homedir/.config/rclone_sync/start_sync.sh" ]]; then \
+                  ${pkgs.sudo}/bin/sudo -H -u "$u" "$homedir/.config/rclone_sync/start_sync.sh" || echo "Sync failed for $u"; \
+              fi; \
           fi; \
       done'
     '';
