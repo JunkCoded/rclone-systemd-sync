@@ -22,18 +22,25 @@ setup_env() {
     fi
 
     declare -A env_values
+    declare -a keys_order
     echo "--- Configuring environment variables ---"
 
-    # Read example.env
+    # Read example.env and resolve env variables (e.g. $USER)
     while IFS='=' read -r key value; do
         [[ "$key" =~ ^#.*$ || -z "$key" ]] && continue
+        # Strip outer quotes
+        value="${value%\"}"
+        value="${value#\"}"
+        # Evaluate variable expansion in the default value
+        eval "value=\"$value\""
         env_values["$key"]="$value"
+        keys_order+=("$key")
     done < "$EXAMPLE_FILE"
 
-    # Ask user for each variable
-    for key in "${!env_values[@]}"; do
+    # Ask user for each variable in order
+    for key in "${keys_order[@]}"; do
         current="${env_values[$key]}"
-        read -rp "Enter value for $key [${current}]: " input
+        read -rp "Enter value for $key [$current]: " input
         if [[ -n "$input" ]]; then
             env_values[$key]="$input"
         fi
@@ -41,8 +48,8 @@ setup_env() {
 
     # Write to .env
     {
-        for key in "${!env_values[@]}"; do
-            echo "$key=${env_values[$key]}"
+        for key in "${keys_order[@]}"; do
+            echo "$key=\"${env_values[$key]}\""
         done
     } > "$ENV_FILE"
 
