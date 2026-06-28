@@ -59,12 +59,6 @@ setup_env() {
 # Step 2: Copy service and script files
 copy_files() {
     echo "--- Copying service and script files ---"
-    
-    if [ -d "$HOME/.rclone_sync" ] && [ ! -d "$CFG_DIR" ]; then
-        echo "Migrating old configuration from $HOME/.rclone_sync to $CFG_DIR"
-        mkdir -p "$(dirname "$CFG_DIR")"
-        mv "$HOME/.rclone_sync" "$CFG_DIR"
-    fi
     mkdir -p "$USER_SYSTEMD_DIR"
     mkdir -p "$CFG_DIR"
 
