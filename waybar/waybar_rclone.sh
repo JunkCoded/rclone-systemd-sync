@@ -5,6 +5,8 @@ UNIT="rclone_sync.service"                 # твой юзер-сервис
 TIMER="rclone_sync.timer"                  # твой юзер-таймер
 SYS_SHUTDOWN_UNIT="rclone_sync_shutdown.service"  # системный юнит на выключение
 WAYBAR_SIG="8"                             # номер сигнала для мгновенного обновления
+CFG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/rclone_sync"
+
 
 esc() {
   sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/"/\\"/g'
@@ -20,14 +22,14 @@ status_json() {
   exit=$(systemctl --user show "$UNIT" -p ExecMainExitTimestamp --value 2>/dev/null || echo "")
 
   local state icon
-  if [[ "$service_active" == "activating" || "$service_active" == "active" ]]; then
+  if [[ -f "$CFG_DIR/disabled" ]]; then
+    state="disabled";  icon=""
+  elif [[ "$service_active" == "activating" || "$service_active" == "active" ]]; then
     state="syncing";   icon="󰑓"
   elif [[ -n "${result:-}" && "$result" != "success" ]]; then
     state="error";     icon=""
-  elif [[ "$timer_active" == "active" ]]; then
-    state="synced";    icon=""
   else
-    state="disabled";  icon=""
+    state="synced";    icon=""
   fi
 
   local timer_enabled shutdown_state=""
@@ -56,12 +58,11 @@ case "${1:-status}" in
     pkill -SIGRTMIN+$WAYBAR_SIG waybar 2>/dev/null || true
     ;;
   toggle-sync)
-    if systemctl --user is-enabled "$TIMER" &>/dev/null; then
-      systemctl --user disable --now "$TIMER"
-      pkexec /usr/bin/systemctl disable --now "$SYS_SHUTDOWN_UNIT"
+    if [[ -f "$CFG_DIR/disabled" ]]; then
+      rm -f "$CFG_DIR/disabled"
     else
-      systemctl --user enable --now "$TIMER"
-      pkexec /usr/bin/systemctl enable --now "$SYS_SHUTDOWN_UNIT"
+      mkdir -p "$CFG_DIR"
+      touch "$CFG_DIR/disabled"
     fi
     pkill -SIGRTMIN+$WAYBAR_SIG waybar 2>/dev/null || true
     ;;

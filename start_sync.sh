@@ -6,12 +6,19 @@
 
 set -euo pipefail
 
+CFG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/rclone_sync"
+
+if [[ -f "$CFG_DIR/disabled" ]]; then
+  echo "Sync disabled, skipping"
+  exit 0
+fi
+
 if ! ping -c1 8.8.8.8 >/dev/null 2>&1; then
   echo "No network available, skipping sync"
   exit 0
 fi
 
-source "$HOME/.rclone_sync/.env"
+source "$CFG_DIR/.env"
 
 # Base command
 COMMAND="rclone bisync \"$LOCAL_DIR\" \"${REMOTE_NAME}:${REMOTE_PATH}\" \
