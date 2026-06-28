@@ -57,7 +57,7 @@
     },
     "group/pill#right2": {
         "modules": [
-            "custom/rclone_sync", // HERE
+            "custom/rclone-systemd-sync", // HERE
             "privacy",
             "tray",
             "battery"

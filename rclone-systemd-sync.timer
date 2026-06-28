@@ -4,7 +4,7 @@ Description=Run sync script every 30 minutes and at boot
 [Timer]
 OnBootSec=1min
 OnUnitActiveSec=30min
-Unit=rclone_sync.service
+Unit=rclone-systemd-sync.service
 
 [Install]
 WantedBy=timers.target

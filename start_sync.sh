@@ -6,7 +6,7 @@
 
 set -euo pipefail
 
-CFG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/rclone_sync"
+CFG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/rclone-systemd-sync"
 
 if [[ -f "$CFG_DIR/disabled" ]]; then
   echo "Sync disabled, skipping"

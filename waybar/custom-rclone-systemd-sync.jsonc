@@ -1,0 +1,12 @@
+{
+    "custom/rclone-systemd-sync": {
+        "format": "{} ",
+        "return-type": "json",
+        "exec": "~/.config/rclone-systemd-sync/waybar_rclone.sh status",
+        "interval": 5,
+        "signal": 8,
+        "tooltip": true,
+        "on-click": "~/.config/rclone-systemd-sync/waybar_rclone.sh sync",
+        "on-click-right": "~/.config/rclone-systemd-sync/waybar_rclone.sh toggle-sync"
+    }
+}

@@ -6,4 +6,4 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=%h/.config/rclone_sync/start_sync.sh
+ExecStart=%h/.config/rclone-systemd-sync/start_sync.sh

@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-UNIT="rclone_sync.service"                 # твой юзер-сервис
-TIMER="rclone_sync.timer"                  # твой юзер-таймер
-SYS_SHUTDOWN_UNIT="rclone_sync_shutdown.service"  # системный юнит на выключение
+UNIT="rclone-systemd-sync.service"                 # твой юзер-сервис
+TIMER="rclone-systemd-sync.timer"                  # твой юзер-таймер
+SYS_SHUTDOWN_UNIT="rclone-systemd-sync-shutdown.service"  # системный юнит на выключение
 WAYBAR_SIG="8"                             # номер сигнала для мгновенного обновления
-CFG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/rclone_sync"
+CFG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/rclone-systemd-sync"
 
 
 esc() {

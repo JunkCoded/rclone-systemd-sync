@@ -42,19 +42,19 @@ Follow these steps to set up the Waybar module for RClone synchronization:
 
    ```bash
    mkdir -p ~/.config/waybar/modules
-   cp custom-rclone_sync.jsonc ~/.config/waybar/modules/
+   cp custom-rclone-systemd-sync.jsonc ~/.config/waybar/modules/
    ```
 
-   The `custom-rclone_sync.jsonc` file defines the module's behavior and appearance.
+   The `custom-rclone-systemd-sync.jsonc` file defines the module's behavior and appearance.
 
 2. **Copy the Waybar Script**
 
    Copy the RClone Waybar script to a dedicated directory and make it executable:
 
    ```bash
-   mkdir -p ~/.rclone_sync
-   cp waybar_rclone.sh ~/.rclone_sync/
-   chmod +x ~/.rclone_sync/waybar_rclone.sh
+   mkdir -p ~/.config/rclone-systemd-sync
+   cp waybar_rclone.sh ~/.config/rclone-systemd-sync/
+   chmod +x ~/.config/rclone-systemd-sync/waybar_rclone.sh
    ```
 
    The `waybar_rclone.sh` script handles the synchronization status logic and click actions.
@@ -65,11 +65,11 @@ Follow these steps to set up the Waybar module for RClone synchronization:
 
    ```bash
    cd ~/.config/waybar
-   cp config.jsonc layouts/rclone_sync.jsonc
-   nano layouts/rclone_sync.jsonc
+   cp config.jsonc layouts/rclone-systemd-sync.jsonc
+   nano layouts/rclone-systemd-sync.jsonc
    ```
 
-   Add the `custom/rclone_sync` module to your desired Waybar group. For example, to add it to the `group/pill#right2` group (commonly used for status icons like battery), include:
+   Add the `custom/rclone-systemd-sync` module to your desired Waybar group. For example, to add it to the `group/pill#right2` group (commonly used for status icons like battery), include:
 
    ```json
    {
@@ -80,7 +80,7 @@ Follow these steps to set up the Waybar module for RClone synchronization:
      ...
      "group/pill#right2": {
        "modules": [
-         "custom/rclone_sync",
+         "custom/rclone-systemd-sync",
          "battery",
          ...
        ]
@@ -113,14 +113,14 @@ Follow these steps to set up the Waybar module for RClone synchronization:
 
 ## Troubleshooting
 
-- **Module Not Visible**: Ensure the `custom/rclone_sync` module is correctly added to your `config.jsonc` and that the paths for `custom-rclone_sync.jsonc` and `waybar_rclone.sh` are correct.
-- **Script Not Executable**: Verify that `waybar_rclone.sh` has executable permissions (`chmod +x ~/.rclone_sync/waybar_rclone.sh`).
+- **Module Not Visible**: Ensure the `custom/rclone-systemd-sync` module is correctly added to your `config.jsonc` and that the paths for `custom-rclone-systemd-sync.jsonc` and `waybar_rclone.sh` are correct.
+- **Script Not Executable**: Verify that `waybar_rclone.sh` has executable permissions (`chmod +x ~/.config/rclone-systemd-sync/waybar_rclone.sh`).
 - **Styling Issues**: Check that the `user-style.css` content is correctly appended to `~/.config/waybar/user-style.css` and that there are no conflicting CSS rules.
 
 ## Notes
 
 - The module assumes the `waybar_rclone.sh` script is correctly configured to interface with your RClone setup.
-- For advanced customization, modify `custom-rclone_sync.jsonc` to adjust the module's appearance or behavior.
+- For advanced customization, modify `custom-rclone-systemd-sync.jsonc` to adjust the module's appearance or behavior.
 - If you encounter issues, check the Waybar logs (`waybar --log-level debug`) or the script's output for errors.
 
 This integration enhances your workflow by providing real-time feedback and control over RClone synchronization directly from your Waybar interface.

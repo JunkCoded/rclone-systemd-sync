@@ -43,18 +43,18 @@ RClone is automatically executed in the following scenarios:
 
 ---
 
-## Installation & Setup (Original Project)
+## Installation & Setup
 
 ### Standard Linux (systemd)
 
 1. Clone the repository and run the interactive installer:
    ```bash
    git clone https://github.com/JunkCoded/rclone_sync.git
-   cd rclone_sync
+   cd rclone-systemd-sync
    chmod +x install.sh
    ./install.sh
    ```
-2. The setup will guide you through setting up variables and save them to `~/.config/rclone_sync/.env`.
+2. The setup will guide you through setting up variables and save them to `~/.config/rclone-systemd-sync/.env`.
 
 To remove the automation:
 ```bash
@@ -71,8 +71,8 @@ For a declarative, non-imperative configuration (systemd timers, shutdown hooks)
 ## Configuration
 
 All files are stored in the standard XDG path:
-* **Configuration file**: `~/.config/rclone_sync/.env`
-* **Disable flag**: `~/.config/rclone_sync/disabled` (creating this file pauses all automated syncs instantly).
+* **Configuration file**: `~/.config/rclone-systemd-sync/.env`
+* **Disable flag**: `~/.config/rclone-systemd-sync/disabled` (creating this file pauses all automated syncs instantly).
 
 ---
 

@@ -4,13 +4,13 @@ set -euo pipefail
 # === CONFIGURATION ===
 ENV_FILE=".env"
 EXAMPLE_FILE="example.env"
-USER_SERVICE="rclone_sync.service"
-USER_TIMER="rclone_sync.timer"
-SHUTDOWN_SERVICE="rclone_sync_shutdown.service"
+USER_SERVICE="rclone-systemd-sync.service"
+USER_TIMER="rclone-systemd-sync.timer"
+SHUTDOWN_SERVICE="rclone-systemd-sync-shutdown.service"
 START_SCRIPT="start_sync.sh"
 USER_SYSTEMD_DIR="$HOME/.config/systemd/user"
 ROOT_SYSTEMD_DIR="/etc/systemd/system"
-CFG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/rclone_sync"
+CFG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/rclone-systemd-sync"
 
 # === FUNCTION DEFINITIONS ===
 
