@@ -8,11 +8,6 @@ After=network-online.target
 [Service]
 Type=oneshot
 ExecStart=/bin/bash -c '\
-if ! ping -c1 8.8.8.8 >/dev/null 2>&1; then
-  echo "No network available, skipping sync"
-  exit 0
-fi
-
 for u in $(who | awk "{print \$1}" | sort -u); do \
     homedir=$(eval echo "~$u"); \
     if [[ -x "$homedir/.rclone_sync/start_sync.sh" ]]; then \
