@@ -45,6 +45,19 @@ RClone is automatically executed in the following scenarios:
 
 ## Installation & Setup
 
+### Prerequisites
+
+Before using this project, you need **rclone** installed and configured with at least one remote:
+
+1. **Install rclone** — [rclone.org/install](https://rclone.org/install/)
+2. **Add a remote** — Run `rclone config` and follow the interactive setup for your storage provider (Google Drive, S3, Dropbox, etc.)
+3. **Set up rclone bisync** — This project uses `rclone bisync`. Read the [bisync documentation](https://rclone.org/bisync/) to understand how it works and any limitations before proceeding.
+
+> [!IMPORTANT]
+> Run a manual `rclone bisync --resync` on your target folders at least once before automating. `install.sh` will do this for you on first run.
+
+---
+
 ### Standard Linux (systemd)
 
 1. Clone the repository and run the interactive installer:
